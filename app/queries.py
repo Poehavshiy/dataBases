@@ -27,6 +27,47 @@ def user_by_forum(forum):
     s_list.append("select user from Forum where short_name = '{forum}')".format(forum=forum))
     return concatinate(s_list)
 
+def forums_posts(forum ,since, limit, order):
+    s_list = []
+    s_list.append("select * from Post where forum = '{forum}' and isDeleted = false ".format(forum=forum))
+    if since != None:
+        s_list.append(" and date > '{since}' ".format(since = since))
+    if order != None:
+        s_list.append(" Order by date DESC ")
+    else:
+        s_list.append(" Order by date ")
+    if(limit != None):
+        s_list.append (" LIMIT {limit} ".format(limit=limit))
+    return concatinate(s_list)
+
+def forums_threads(forum ,since, limit, order):
+    s_list = []
+    s_list.append("select * from Post where forum = '{forum}' and isDeleted = false ".format(forum=forum))
+    if since != None:
+        s_list.append(" and date > '{since}' ".format(since = since))
+    if order != None:
+        s_list.append(" Order by date DESC ")
+    else:
+        s_list.append(" Order by date ")
+    if(limit != None):
+        s_list.append (" LIMIT {limit} ".format(limit=limit))
+    return concatinate(s_list)
+
+def forums_users(forum ,since, limit, order):
+    s_list = []
+    s_list.append( "select * from User where email in ")
+    s_list.append(" (select user from Post where forum = '{forum}' and isDeleted = false) ".format(forum=forum))
+    if since != None:
+        s_list.append(" and id > {since} ' ".format(since=since))
+    if order != None:
+        s_list.append(" Order by User.email DESC ")
+    else:
+        s_list.append(" Order by User.email ")
+    if (limit != None):
+        s_list.append(" LIMIT {limit} ".format(limit=limit))
+    return concatinate(s_list)
+
+
 ############## USER'S
 def user_details(email):
     s_list = []
@@ -49,6 +90,10 @@ def users_subscriptions(email):
     s_list.append ( " where email = '{email}' group by email".format(email=email) )
     return concatinate(s_list)
 
-#THREAD'S
+############THREAD'S
 def thread_details(id):
-    return "select * from Thread where id = {id}".format(id=id)
+    return "select * from Thread where id = {id} and isDeleted = false".format(id=id)
+
+############POST'S
+def post_details(id):
+    return "select * from Post where id = {id} and isDeleted = false".format(id=id)

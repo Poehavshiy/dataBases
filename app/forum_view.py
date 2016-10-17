@@ -4,8 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 import forum_functions as funct
 from json_handle import create_responce
 
+
 def details(request):
-    # 'example@mail.ru'
     forum = request.GET['forum']
     user = None
     if 'related' in request.GET:
@@ -20,10 +20,71 @@ def create(request):
         json_data = json.loads(request.body)
         for_inserting = json_data["response"]
         error = funct.create(for_inserting)
-        if(error == 0):
+        if (error == 0):
             return HttpResponse(request.body)
         else:
             return HttpResponse(error)
 #####
 def list_posts(request):
-    a=1
+    target_forum = request.GET['forum']
+    since = None
+    limit = None
+    order = None
+
+    if 'since' in request.GET:
+        since = request.GET['since']
+    if 'limit' in request.GET:
+        limit = request.GET['limit']
+    if 'order' in request.GET:
+        order = request.GET['order']
+    user = None
+    forum = None
+    thread = None
+    related = request.GET.getlist('related')
+    if 'user' in related:
+        user = 'user'
+    if 'forum' in related:
+        forum = 'forum'
+    if 'thread' in related:
+        thread = 'thread'
+    json_dict = funct.list_posts(target_forum, since, limit, order, user, forum, thread)
+    json_data = create_responce(json_dict)
+    return HttpResponse(json_data)
+#####
+def list_threads(request):
+    target_forum = request.GET['forum']
+    since = None
+    limit = None
+    order = None
+    if 'since' in request.GET:
+        since = request.GET['since']
+    if 'limit' in request.GET:
+        limit = request.GET['limit']
+    if 'order' in request.GET:
+        order = request.GET['order']
+    user = None
+    forum = None
+    related = request.GET.getlist('related')
+    if 'user' in related:
+        user = 'user'
+    if 'forum' in related:
+        forum = 'forum'
+    json_dict = funct.list_threads(target_forum, since, limit, order, user, forum)
+    json_data = create_responce(json_dict)
+    #check = str(forum) + ' ' + str(since) + ' ' + str(limit) + ' ' + str(order) + ' ' + str(user) + ' ' + str(forum)
+    return HttpResponse(json_data)
+####
+def list_users(request):
+    target_forum = request.GET['forum']
+    since = None
+    limit = None
+    order = None
+    if 'since' in request.GET:
+        since = request.GET['since']
+    if 'limit' in request.GET:
+        limit = request.GET['limit']
+    if 'order' in request.GET:
+        order = request.GET['order']
+    json_dict = funct.list_users(target_forum, since, limit, order)
+    json_data = create_responce(json_dict)
+    return HttpResponse(json_data)
