@@ -1,11 +1,17 @@
 import queries as Q
-import  json_handle as jh
+import json_handle as jh
 
-def user_details(email, add = None):
+def max_id(table):
+    rs = jh.engine.execute(Q.max_id(table))
+    base_dict = jh.create_dict_base(rs)
+    id = base_dict.get("max(id)")
+    return id
+
+def user_details(email, add=None):
     query = Q.user_details(email)
     rs = jh.engine.execute(query)
     base_dict = jh.create_dict_base(rs)
-    if(add == None ):
+    if (add == None):
         return base_dict
     ##followers
     rs = jh.engine.execute(Q.users_followers(email))
@@ -24,21 +30,22 @@ def forum_details(forum, user):
     query = Q.forum_details(forum)
     rs = jh.engine.execute(query)
     base_dict = jh.create_dict_base(rs)
-    if(user != None):
+    if (user != None):
         user = base_dict["user"]
         user_dict = user_details(user)
         base_dict['user'] = user_dict
     return base_dict
 
+
 def thread_details(id, user, forum):
-    query = Q.thread_details(id)
+    query = Q.thread_details(id, True)
     rs = jh.engine.execute(query)
     base_dict = jh.create_dict_base(rs)
-    if(user != None):
+    if (user != None):
         user = base_dict["user"]
         user_dict = user_details(user)
         base_dict['user'] = user_dict
-    if(forum != None):
+    if (forum != None):
         forum = base_dict["forum"]
         forum_dict = forum_details(forum, None)
         base_dict['forum'] = forum_dict
@@ -49,11 +56,11 @@ def post_details(id, user, forum, thread):
     query = Q.post_details(id)
     rs = jh.engine.execute(query)
     base_dict = jh.create_dict_base(rs)
-    if(user != None):
+    if (user != None):
         user = base_dict["user"]
         dict = user_details(user)
         base_dict['user'] = dict
-    if(forum != None):
+    if (forum != None):
         forum = base_dict["forum"]
         dict = forum_details(forum, None)
         base_dict['forum'] = dict
@@ -62,3 +69,44 @@ def post_details(id, user, forum, thread):
         dict = thread_details(thread, None, None)
         base_dict['thread'] = dict
     return base_dict
+
+
+def create(for_inserting, entity):
+    error_resp = 0
+    values = jh.create_insert_dict(for_inserting)
+    query = ""
+    answer = {}
+    if entity == "user":
+        query = Q.user_create(values)
+        jh.engine.execute(query)
+        answer = user_details(for_inserting.get("email"))
+
+    elif entity == "forum":
+        query = Q.forum_create(values)
+        jh.engine.execute(query)
+        key = for_inserting.get("short_name")
+        answer = forum_details(key, None)
+
+    elif entity == "post":
+        query = Q.post_create(values)
+        print query
+        jh.engine.execute(query)
+        answer = post_details(max_id("Post"), None, None, None)
+
+    elif entity == "thread":
+        query = Q.thread_create(values)
+        jh.engine.execute(query)
+        answer = thread_details(max_id("Thread"), None, None)
+    return error_resp, answer
+
+
+
+
+
+"""j = {"forum": "f3", "title": "Thread With Sufficiently Large Title", "isClosed": True,
+     "user": "example3@mail.ru", "date": "2014-01-01 00:00:01",
+     "message": "hey hey hey hey!", "slug": "Threadwithsufficientlylargetitle", "isDeleted": True}
+
+a, answer = create(j, "thread")
+#answer = max_id("Thread")
+print answer"""

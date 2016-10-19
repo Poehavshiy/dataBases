@@ -3,14 +3,6 @@ import json
 import  json_handle as jh
 import details as dt
 
-import MySQLdb, sys
-
-def create(for_inserting):
-    error_resp = 0
-    values = jh.create_insert_dict(for_inserting)
-    query = Q.forum_create(values)
-    jh.engine.execute(query)
-    return error_resp
 ######
 def list_posts(target_forum, since = None, limit=None, order=None, user=None, forum=None, thread=None):
     query = Q.forums_posts(target_forum, since, limit, order)

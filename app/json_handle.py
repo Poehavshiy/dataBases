@@ -61,7 +61,6 @@ def create_error_responce(error_code, error):
     json_data = json.dumps(resp_dict)
     return json_data
 
-
 def create_insert_dict(dictionary):
     key_values = {}
     for key, value in dictionary.iteritems():
