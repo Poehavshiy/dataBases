@@ -3,20 +3,31 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 import forum_functions as funct
 import details as d
+import json_handle as jh
 from json_handle import create_responce
 
 
 def details(request):
-    forum = request.GET['forum']
+    forum = ""
+    if "forum" in request.GET:
+        forum = request.GET['forum']
+    else:
+        return HttpResponse(json.dumps(jh.invalid_request))
     user = None
     if 'related' in request.GET:
         user = request.GET['related']
-    json_dict = funct.forum_details(forum, user)
+    json_dict = d.forum_details(forum, user)
+    if(json_dict == None):
+        return HttpResponse(json.dumps(jh.nothing_found))
     json_data = create_responce(json_dict)
     return HttpResponse(json_data)
 #####
 def list_posts(request):
-    target_forum = request.GET['forum']
+    target_forum = ""
+    if "forum" in request.GET:
+        target_forum = request.GET['forum']
+    else:
+        return HttpResponse(json.dumps(jh.invalid_request))
     since = None
     limit = None
     order = None
@@ -42,7 +53,11 @@ def list_posts(request):
     return HttpResponse(json_data)
 #####
 def list_threads(request):
-    target_forum = request.GET['forum']
+    target_forum = ""
+    if "forum" in request.GET:
+        target_forum = request.GET['forum']
+    else:
+        return HttpResponse(json.dumps(jh.invalid_request))
     since = None
     limit = None
     order = None
@@ -65,7 +80,11 @@ def list_threads(request):
     return HttpResponse(json_data)
 #####
 def list_users(request):
-    target_forum = request.GET['forum']
+    target_forum = ""
+    if "forum" in request.GET:
+        target_forum = request.GET['forum']
+    else:
+        return HttpResponse(json.dumps(jh.invalid_request))
     since = None
     limit = None
     order = None
@@ -82,11 +101,15 @@ def list_users(request):
 @csrf_exempt
 def create(request):
     if request.method == 'POST':
-        json_data = json.loads(request.body)
+        try:
+            json_data = json.loads(request.body)
+        except ValueError:
+            return HttpResponse(json.dumps(jh.invalid_request))
+
         error, json_dict = d.create(json_data, "forum")
+        if json_dict == None:
+            return HttpResponse(json.dumps(jh.already_exists))
         json_data = create_responce(json_dict)
-        if (error == 0):
-            return HttpResponse(json_data)
-        else:
-            return HttpResponse(error)
+        return HttpResponse(json_data)
+
 #####

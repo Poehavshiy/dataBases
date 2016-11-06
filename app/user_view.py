@@ -10,13 +10,15 @@ import details as d
 @csrf_exempt
 def create(request):
     if request.method == 'POST':
-        json_data = json.loads(request.body)
+        try:
+            json_data = json.loads(request.body)
+        except ValueError:
+            return HttpResponse(json.dumps(jh.invalid_request))
         error, json_dict = d.create(json_data, "user")
+        if json_dict == None:
+            return HttpResponse(json.dumps(jh.already_exists))
         json_data = create_responce(json_dict)
-        if (error == 0):
-            return HttpResponse(json_data)
-        else:
-            return HttpResponse(error)
+        return HttpResponse(json_data)
 
 @csrf_exempt
 def follow(request):
@@ -86,3 +88,15 @@ def unfollow(request):
             return HttpResponse(json_data)
         else:
             return HttpResponse(error)
+
+@csrf_exempt
+def updateProfile(request):
+    if request.method == 'POST':
+        try:
+            json_data = json.loads(request.body)
+        except ValueError:
+            return HttpResponse(json.dumps(jh.invalid_request))
+        error, json_dict = funct.update_user(json_data)
+        json_data = create_responce(json_dict)
+
+        return HttpResponse(json_data)

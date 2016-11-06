@@ -3,22 +3,30 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 import post_functions as funct
 import details as d
+import json_handle as jh
 from json_handle import create_responce
 
 def details(request):
-    # 'example@mail.ru'
-    id = request.GET['post']
+    id = 0
+    if "post" in request.GET:
+        id = request.GET['post']
+    else:
+        return HttpResponse(json.dumps(jh.invalid_request))
     user = None
     forum = None
     thread = None
-    related = request.GET.getlist('related')
-    if 'user' in related:
-        user = 'user'
-    if 'forum' in related:
-        forum = 'forum'
-    if 'thread' in related:
-        thread = 'thread'
+    related = None
+    if 'related' in request.GET:
+        related = request.GET.getlist('related')
+        if 'user' in related:
+            user = 'user'
+        if 'forum' in related:
+            forum = 'forum'
+        if 'thread' in related:
+            thread = 'thread'
     json_dict = d.post_details(id, user, forum, thread)
+    if (json_dict == None):
+        return HttpResponse(json.dumps(jh.nothing_found))
     json_data = create_responce(json_dict)
     return HttpResponse(json_data)
 ######
@@ -48,10 +56,10 @@ def list(request):
 def remove(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
-        for_inserting = json_data["response"]
-        error = funct.remove_restore(for_inserting, True)
+        error = funct.remove_restore(json_data, True)
+        json_data = create_responce(json_data)
         if (error == 0):
-            return HttpResponse(request.body)
+            return HttpResponse(json_data)
         else:
             return HttpResponse(error)
 
@@ -94,10 +102,11 @@ def vote(request):
 @csrf_exempt
 def create(request):
     if request.method == 'POST':
-        json_data = json.loads(request.body)
+        try:
+            json_data = json.loads(request.body)
+        except ValueError:
+            return HttpResponse(json.dumps(jh.invalid_request))
         error, json_dict = d.create(json_data, "post")
         json_data = create_responce(json_dict)
-        if (error == 0):
-            return HttpResponse(json_data)
-        else:
-            return HttpResponse(error)
+        return HttpResponse(json_data)
+

@@ -37,7 +37,6 @@ def post_vote(for_inserting, bool):
     return error_resp, answer
 
 
-
-r ={"vote": -1, "post": 5}
+"""r ={"vote": -1, "post": 5}
 a, answer = post_vote(r, False)
-print answer
+print answer"""

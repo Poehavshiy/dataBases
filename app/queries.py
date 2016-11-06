@@ -4,7 +4,6 @@ def concatinate(s_list):
         result += r
     return result
 
-
 ############## FORUM'S
 def forum_create(ins_dict):
     s_list = []
@@ -40,7 +39,7 @@ def forums_posts(forum, since, limit, order):
 
 def forums_threads(forum, since, limit, order):
     s_list = []
-    s_list.append("select * from Post where forum = '{forum}' and isDeleted = false ".format(forum=forum))
+    s_list.append("select * from Thread where forum = '{forum}' and isDeleted = false ".format(forum=forum))
     if since != None:
         s_list.append(" and date > '{since}' ".format(since=since))
     if order != None:
@@ -64,7 +63,6 @@ def forums_users(forum, since, limit, order):
     if (limit != None):
         s_list.append(" LIMIT {limit} ".format(limit=limit))
     return concatinate(s_list)
-
 
 ############## USER'S
 def user_create(ins_dict):
@@ -131,8 +129,27 @@ def user_unfollow(key_values):
         email1 = key_values["follower"], email2 = key_values["followee"]))
     return concatinate(s_list)
 
+def user_update(key_values):
+    s_list = []
+    s_list.append("UPDATE User Set about = '{about}', name = '{name}'".format(
+        about = key_values["about"], name = key_values["name"]  ))
+    s_list.append("Where email = '{email}'".format(email = key_values["user"]))
+    return concatinate(s_list)
 
-############THREAD'S
+def users_threads(user, since, limit, order):
+    s_list = []
+    s_list.append("select * from Thread where user = '{forum}' and isDeleted = false ".format(user=user))
+    if since != None:
+        s_list.append(" and date > '{since}' ".format(since=since))
+    if order != None:
+        s_list.append(" Order by date DESC ")
+    else:
+        s_list.append(" Order by date ")
+    if (limit != None):
+        s_list.append(" LIMIT {limit} ".format(limit=limit))
+    return concatinate(s_list)
+
+############## THREAD'S
 def thread_create(ins_dict):
     s_list = []
     s_list.append("INSERT INTO Thread (`date`,`forum`,`isClosed`,`isDeleted`,`message`,`slug`,`title`, `user`)")
@@ -162,7 +179,50 @@ def thread_posts(thread, since, limit, order):
         s_list.append(" LIMIT {limit} ".format(limit=limit))
     return concatinate(s_list)
 
-############POST'S
+def close_open_thread(ins_dict, bool):
+    s_list = []
+    s_list.append("UPDATE Thread Set isClosed = {bool} Where ".format(bool=bool))
+    s_list.append("id = {id} ".format(id=ins_dict.get("thread")))
+    return concatinate(s_list)
+
+def remove_restore_thread(ins_dict, bool):
+    s_list = []
+    s_list.append("UPDATE Thread Set isDeleted = {bool} Where ".format(bool=bool))
+    s_list.append("id = {id} ".format(id=ins_dict.get("thread")))
+
+    return concatinate(s_list)
+
+def subscribe(ins_dict):
+    s_list = []
+    s_list.append("INSERT INTO Subscriptions(`email`, `tid`) ")
+    s_list.append("VALUES('{email}', {thread});".format(email = ins_dict.get("user"),
+                                                        thread = ins_dict.get("thread")))
+    return concatinate(s_list)
+
+def unsubscribe(ins_dict):
+    s_list = []
+    s_list.append("DELETE FROM Subscriptions ")
+    s_list.append("Where email = '{email}' and tid = {thread} ;".format(email=ins_dict.get("user"),
+                                                        thread=ins_dict.get("thread")))
+    return concatinate(s_list)
+
+def update_thread(ins_dict):
+    s_list = []
+    s_list.append("UPDATE Thread Set message = '{message}', ".format(message=ins_dict.get("message")))
+    s_list.append("slug = '{slug}'  Where ".format(slug=ins_dict.get("slug")))
+    s_list.append("id = {id} ".format(id=ins_dict.get("thread")))
+    return concatinate(s_list)
+
+def thread_vote(ins_dict, bool):
+    s_list = []
+    if( bool == True):
+        s_list.append("UPDATE Thread Set likes = likes + 1, points = points + 1")
+    else:
+        s_list.append("UPDATE Thread Set dislikes = dislikes + 1, points = points - 1 ")
+    s_list.append(" Where id = {id}".format(id=ins_dict.get("thread")))
+    return concatinate(s_list)
+
+############## POST'S
 def post_create(ins_dict):
     isApproved = True
     isHighlighted = True

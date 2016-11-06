@@ -40,3 +40,15 @@ def unfollow(for_inserting):
     query = Q.user_unfollow(for_inserting)
     jh.engine.execute(query)
     return error_resp, d.user_details(for_inserting.get("follower") ,1)
+
+def update_user(for_inserting):
+    error_resp = 0
+    query = Q.user_update(for_inserting)
+    jh.engine.execute(query)
+    return error_resp, d.user_details(for_inserting.get("user"), 1)
+
+"""j = {"about": "Wowowowow!!!", "user": "example3@mail.ru", "name": "NewName2"}
+
+answer = update_user(j)
+#answer = max_id("Thread")
+print answer"""

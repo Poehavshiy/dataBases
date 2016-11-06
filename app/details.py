@@ -1,5 +1,6 @@
 import queries as Q
 import json_handle as jh
+from sqlalchemy import exc
 
 def max_id(table):
     rs = jh.engine.execute(Q.max_id(table))
@@ -30,6 +31,8 @@ def forum_details(forum, user):
     query = Q.forum_details(forum)
     rs = jh.engine.execute(query)
     base_dict = jh.create_dict_base(rs)
+    if(base_dict == None):
+        return base_dict
     if (user != None):
         user = base_dict["user"]
         user_dict = user_details(user)
@@ -78,27 +81,37 @@ def create(for_inserting, entity):
     answer = {}
     if entity == "user":
         query = Q.user_create(values)
-        jh.engine.execute(query)
+        try:
+            jh.engine.execute(query)
+        except exc.SQLAlchemyError:
+            return 1, None
         answer = user_details(for_inserting.get("email"))
 
     elif entity == "forum":
         query = Q.forum_create(values)
-        jh.engine.execute(query)
+        try:
+            jh.engine.execute(query)
+        except exc.SQLAlchemyError:
+            return 1, None
         key = for_inserting.get("short_name")
         answer = forum_details(key, None)
 
     elif entity == "post":
         query = Q.post_create(values)
-        print query
-        jh.engine.execute(query)
+        try:
+            jh.engine.execute(query)
+        except exc.SQLAlchemyError:
+            return 1, None
         answer = post_details(max_id("Post"), None, None, None)
 
     elif entity == "thread":
         query = Q.thread_create(values)
-        jh.engine.execute(query)
+        try:
+            jh.engine.execute(query)
+        except exc.SQLAlchemyError:
+            return 1, None
         answer = thread_details(max_id("Thread"), None, None)
     return error_resp, answer
-
 
 
 
@@ -110,3 +123,6 @@ def create(for_inserting, entity):
 a, answer = create(j, "thread")
 #answer = max_id("Thread")
 print answer"""
+
+answer  = forum_details("f123412414", None)
+print answer

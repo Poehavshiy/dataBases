@@ -5,6 +5,10 @@ from datetime import datetime
 
 engine = create_engine('mysql+mysqldb://root:2112916@localhost/true_fdb')
 
+invalid_request = {"code": 2, "response": "invalid_request"}
+nothing_found = {"code": 1, "response": "nothing_found"}
+already_exists = {"code": 5, "response": "already_exists"}
+
 #dict from keys and values tuples
 def create_simple_dict(keys, values):
     quer_res = {}
@@ -25,7 +29,10 @@ def create_simple_dict(keys, values):
 #basic dict for details body
 def create_dict_base(rs):
     keys = rs.keys()
-    values = list(rs)[0]
+    check = list(rs)
+    if not check:
+        return None
+    values = check[0]
     return create_simple_dict(keys, values)
 
 #list entity (listposts)
