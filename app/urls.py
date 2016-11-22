@@ -14,7 +14,7 @@ urlpatterns = [
     #forum's
     url('forum/create/', forum_view.create, name='create'),
     url('forum/details/', forum_view.details, name='details'),
-    url('forum/listPosts/', forum_view.list_posts, name='list_posts'),
+    url('forum/listPosts/', forum_view.listPosts, name='listPosts'),
     url('forum/listThreads/', forum_view.list_threads, name='list_threads'),
     url('forum/listUsers/', forum_view.list_users, name='list_users'),
     #thread's
@@ -40,6 +40,7 @@ urlpatterns = [
     url('post/vote/',post_view.vote, name='vote'),
     #user's
     url('user/create/', user_view.create, name='create'),
+    url('user/details/', user_view.details, name='details'),
     url('user/follow/', user_view.follow, name='follow'),
     url('user/listFollowers/', user_view.listFollowers, name='listFollowers'),
     url('user/listFollowing/', user_view.listFollowing, name='listFollowing'),

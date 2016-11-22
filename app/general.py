@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 import  json_handle as jh
 
 def clear_all():
+    print ' NEW TEST\n\n\n\ '
     query_list  = []
     query_list.append("TRUNCATE TABLE Forum")
     query_list.append("TRUNCATE TABLE User")
@@ -11,11 +12,17 @@ def clear_all():
     query_list.append("TRUNCATE TABLE Post")
     query_list.append("TRUNCATE TABLE Subscriptions")
     query_list.append( "TRUNCATE TABLE Followers")
+
+    jh.engine.execute('SET NAMES utf8;')
+    jh.engine.execute('SET CHARACTER SET utf8;')
+    jh.engine.execute('SET character_set_connection=utf8;')
+
     for q in query_list:
         jh.engine.execute(q)
 
 @csrf_exempt
 def clear(request):
+    f = open('workfile', 'w')
     if request.method == 'POST':
         clear_all()
         resp_dict = {"code": 0, "response": "OK"}
@@ -42,7 +49,10 @@ def status(request):
     json_data = json.dumps(resp_dict)
     return HttpResponse(json_data)
 
-tables = calculate()
+
+"""tables = calculate()
 data = {"user": tables[0], "thread": tables[1], "forum": tables[2], "post": tables[3]}
 resp_dict = {"code": 0, "response": data}
-print resp_dict
+print resp_dict"""
+#clear_all()
+

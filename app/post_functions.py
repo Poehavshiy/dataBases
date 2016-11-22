@@ -1,42 +1,191 @@
 import queries as Q
-import  json_handle as jh
-import details as d
+import json_handle as jh
+import details as det
+from django.http import HttpResponse
+import json
 
 
-def list_posts(since, limit, order, forum, thread):
-    query = ""
-    if forum != None:
-        query = Q.forums_posts(forum, since, limit, order)
+class Post_listing:
+    since = None
+    limit = None
+    order = None
+    sort = None
+    target = None
+    related = []
+
+    def since_limit_order(self, request):
+        self.since = request.GET.get('since', None)
+        self.limit = request.GET.get('limit', None)
+        if self.limit != None:
+            self.limit = int(self.limit)
+        self.order = request.GET.get('order', "Decs")
+
+    def repair(self, base_dict):
+        for d in base_dict:
+            if d["parent"] == -1:
+                d["parent"] = None
+            d.pop("path")
+            d.pop("sortpath")
+
+    def user(self, request):
+        # print request
+        self.since_limit_order(request)
+        user = "'" + request.GET["user"] + "'"
+        query = Q.list_posts(self.since, self.order, "flat", "user", user)
+        rs = jh.engine.execute(query)
+        base_dict = jh.list_of_dict(rs)
+        if self.limit == None:
+            self.limit = len(base_dict)
+        base_dict = base_dict[:self.limit]
+        if not base_dict:
+            json_data = jh.create_responce(base_dict)
+            return HttpResponse(json_data)
+        self.repair(base_dict)
+        json_data = jh.create_responce(base_dict)
+        # print json_data
+        return HttpResponse(json_data)
+
+    def forum(self, request):
+        self.since_limit_order(request)
+        forum = "'" + request.GET["forum"] + "'"
+        query = Q.list_posts(self.since, self.order, "flat", "forum", forum)
+        rs = jh.engine.execute(query)
+        base_dict = jh.list_of_dict(rs)
+        if self.limit == None:
+            self.limit = len(base_dict)
+        base_dict = base_dict[:self.limit]
+        if not base_dict:
+            json_data = jh.create_responce(base_dict)
+            # print json_data
+            return HttpResponse(json_data)
+        self.repair(base_dict)
+
+        related = []
+        if "related" in request.GET:
+            related = request.GET.getlist("related")
+        if 'user' in related:
+            for d in base_dict:
+                user = d.get("user")
+                d["user"] = det.user_details(user, None)
+        if 'forum' in related:
+            forum = base_dict[0].get("forum")
+            for d in base_dict:
+                d["forum"] = det.forum_details(forum, None)
+        if 'thread' in related:
+            for d in base_dict:
+                thread = d.get("thread")
+                d["thread"] = det.thread_details(thread, None, None, "likes")
+        json_data = jh.create_responce(base_dict)
+        # print json_data
+        return HttpResponse(json_data)
+
+    def thread(self, request):
+        self.since_limit_order(request)
+        self.sort = request.GET.get('sort', "flat")
+        thread = request.GET["thread"]
+        query = Q.list_posts(self.since, self.order, self.sort, "thread", thread)
+        rs = jh.engine.execute(query)
+
+        base_dict = jh.list_of_dict(rs)
+        if not base_dict:
+            json_data = jh.create_responce(base_dict)
+            return HttpResponse(json_data)
+
+        if self.sort == "flat":
+            if self.limit == None:
+                self.limit = len(base_dict)
+            base_dict = base_dict[:self.limit]
+
+        elif self.sort == "tree" or self.sort == "parent_tree":
+            if self.order == "desc":
+                base_dict = repair_desc_tree(base_dict, self.limit, self.order, self.sort)
+            elif self.order == "asc":
+                if self.sort == "tree":
+                    base_dict = base_dict[:self.limit]
+                else:
+                    base_dict = repair_parent_tree(base_dict, self.limit)
+        self.repair(base_dict)
+        json_data = jh.create_responce(base_dict)
+        # print json_data
+        return HttpResponse(json_data)
+
+    def post(self, request):
+        if 'forum' in request.GET:
+            return self.forum(request)
+        if 'thread' in request.GET:
+            return self.thread(request)
+
+
+def repair_parent_tree(dict, limit):
+    i = 0
+    count = 0
+    while count <= limit and i < len(dict):
+        if dict[i]["path"].count("/") == 1:
+            count = count + 1
+        if count <= limit:
+            i = i + 1
+    new_dict = dict[:i]
+    return new_dict
+
+
+def repair_desc_tree(base_dict, limit, order, sort_type):
+    if order == "asc":
+        base_dict = base_dict[:limit]
+        return base_dict
     else:
-        query = Q.thread_posts(thread, since, limit, order)
-    rs = jh.engine.execute(query)
-    base_dict = jh.list_of_dict(rs)
-    return base_dict
+        new_dict = []
+        end = len(base_dict) - 1
+        i = end
+        while i >= 0:
+            if base_dict[i]["path"].count("/") == 1:
+                new_dict.extend(base_dict[i:end + 1])
+                end = i - 1
+            i = i - 1
+        if sort_type == "tree":
+            new_dict = new_dict[:limit]
+        else:
+            new_dict = repair_parent_tree(new_dict, limit)
+        return new_dict
+
+
 ####
 def remove_restore(for_inserting, bool):
     error_resp = 0
     key_values = jh.create_insert_dict(for_inserting)
+    json_dict = det.post_details(key_values.get("post"), None, None, None)
+    # if post is already deleted
+    if json_dict.get("isDeleted") == 1 and bool == True:
+        return 0
+    # if post is already restored
+    if json_dict.get("isDeleted") == 0 and bool == False:
+        return 0
     query = Q.remove_restore_post(key_values, bool)
     jh.engine.execute(query)
+    # change threads posts
+    query = Q.threads_posts_change(json_dict, bool)
+    jh.engine.execute(query)
     return error_resp
+
+
 ####
 def post_update(for_inserting):
     error_resp = 0
     key_values = jh.create_insert_dict(for_inserting)
     query = Q.update_post(key_values)
     jh.engine.execute(query)
-    answer = d.post_details(key_values.get("post"), None, None, None)
+    answer = det.post_details(key_values.get("post"), None, None, None)
     return error_resp, answer
+
+
 ####
 def post_vote(for_inserting, bool):
     error_resp = 0
     key_values = jh.create_insert_dict(for_inserting)
     query = Q.vote(key_values, bool)
     jh.engine.execute(query)
-    answer = d.post_details(key_values.get("post"), None, None, None)
+    answer = det.post_details(key_values.get("post"), None, None, None)
     return error_resp, answer
 
-
-"""r ={"vote": -1, "post": 5}
-a, answer = post_vote(r, False)
-print answer"""
+# r ={"vote": -1, "post": 5}
+# answer = list_posts(None, None, None,None, "Forum", "forum1")
+# print answer

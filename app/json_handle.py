@@ -3,17 +3,36 @@ import json
 import unicodedata
 from datetime import datetime
 
-engine = create_engine('mysql+mysqldb://root:2112916@localhost/true_fdb')
+engine = create_engine('mysql+mysqldb://root:2112916@localhost/true_fdb?charset=utf8')
 
-invalid_request = {"code": 2, "response": "invalid_request"}
+invalid_request_json = {"code": 2, "response": "invalid_request json parsing"}
+invalid_request = {"code": 3, "response": "invalid_request "}
 nothing_found = {"code": 1, "response": "nothing_found"}
 already_exists = {"code": 5, "response": "already_exists"}
+
+
+list_bool_fields = ["isApproved", "isSpam", "isHighlighted",
+                    "isDeleted", "isEdited", "isAnonymous", "isClosed"]
+
+def fix_bool_fields(dictionary):
+    for key in list_bool_fields:
+        value = dictionary.get(key, None)
+        if value != None:
+            if value == 1:
+                dictionary[key] = True
+            else:
+                dictionary[key] = False
+
+
 
 #dict from keys and values tuples
 def create_simple_dict(keys, values):
     quer_res = {}
     i = 0
     for key in keys:
+        if (type(values[i]) is bool):
+            quer_res[key] = bool(values[i])
+
         if (type(values[i]) is unicode):
             unicodedata.normalize('NFKD', values[i]).encode('ascii', 'ignore')
             quer_res[key] = values[i]
@@ -23,7 +42,12 @@ def create_simple_dict(keys, values):
 
         else:
             quer_res[key] = values[i]
+
+        if values[i] == "None":
+            quer_res[key] = None
+
         i = i + 1
+    fix_bool_fields(quer_res)
     return quer_res
 
 #basic dict for details body
@@ -75,5 +99,6 @@ def create_insert_dict(dictionary):
             unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
         else:
             str(value)
+
         key_values[key] = value
     return key_values

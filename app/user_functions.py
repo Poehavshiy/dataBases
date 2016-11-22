@@ -15,24 +15,16 @@ def list_followers_follow(email, since_id, limit, order, type):
     query = Q.list_followers_follow(email, since_id, limit, order, type)
     rs = jh.engine.execute(query)
     base_dict = jh.list_of_dict(rs)
-    result = []
     for user in base_dict:
         rs = jh.engine.execute(Q.users_followers(user["email"]))
         user["followers"] = jh.create_list_response(rs)
         ##follow
         rs = jh.engine.execute(Q.user_follows(user["email"]))
         user["following"] = jh.create_list_response(rs)
-    return base_dict
-#j = {"follower": "example2@mail.ru", "followee": "example3@mail.ru"}
+        # subscr
+        rs = jh.engine.execute(Q.users_subscriptions(user["email"]))
+        user["subscriptions"] = jh.create_list_response(rs)
 
-#answer = list_followers_follow("example@mail.ru", 1, 1, 1, "followers")
-#answer = max_id("Thread")
-#print answer
-
-def list_posts(target_user, since, limit, order):
-    query = Q.users_posts(target_user, since, limit, order)
-    rs = jh.engine.execute(query)
-    base_dict = jh.list_of_dict(rs)
     return base_dict
 
 def unfollow(for_inserting):
@@ -46,9 +38,3 @@ def update_user(for_inserting):
     query = Q.user_update(for_inserting)
     jh.engine.execute(query)
     return error_resp, d.user_details(for_inserting.get("user"), 1)
-
-"""j = {"about": "Wowowowow!!!", "user": "example3@mail.ru", "name": "NewName2"}
-
-answer = update_user(j)
-#answer = max_id("Thread")
-print answer"""
