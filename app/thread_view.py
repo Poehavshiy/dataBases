@@ -6,6 +6,8 @@ import details as d
 import json_handle as jh
 from json_handle import create_responce
 from post_functions import Post_listing
+from general import creator
+
 
 def check_keys(list, check_list):
     for item in list:
@@ -13,11 +15,12 @@ def check_keys(list, check_list):
             return False
     return True
 
+
 def details(request):
     # 'example@mail.ru'
     id = request.GET['thread']
     id = int(id)
-    if id < 1:
+    if id < 1 or id > creator.nthreads:
         return HttpResponse(json.dumps(jh.nothing_found))
     user = None
     forum = None
@@ -31,39 +34,43 @@ def details(request):
     if 'forum' in related:
         forum = 'forum'
     json_dict = d.thread_details(id, user, forum, 1)
+    if json_dict == None:
+        return HttpResponse(json.dumps(jh.nothing_found))
+
     json_data = create_responce(json_dict)
-    #print json_data
+    # print json_data
     return HttpResponse(json_data)
 
 
 @csrf_exempt
 def create(request):
     if request.method == 'POST':
-        # print "thread crate\n"
-        # print request.body
-        json_data = json.loads(request.body)
-        error, json_dict = d.create(json_data, "thread")
-
-        json_dict.pop("posts")
-        list_bool_fields = ["isDeleted", "isClosed"]
-        for iter in list_bool_fields:
-            if json_dict[iter] == 0:
-                json_dict[iter] = False
-            else:
-                json_dict[iter] = True
-
-        json_data = create_responce(json_dict)
-        # print json_data
-        if (error == 0):
-            return HttpResponse(json_data)
-        else:
-            return HttpResponse(error)
+        try:
+            # print "post create\n"
+            #print request.body
+            json_data = json.loads(request.body)
+        except ValueError:
+            return HttpResponse(json.dumps(jh.invalid_request))
+    # print "thread crate\n"
+    # print request.body
+    json_data = json.loads(request.body)
+    error, json_dict = creator.create_thread(json_data)
+    json_data = create_responce(json_dict)
+    # print json_data
+    if (error == 0):
+        return HttpResponse(json_data)
+    else:
+        return HttpResponse(error)
 
 
 @csrf_exempt
 def close(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
+        id = json_data['thread']
+        if id < 1 or id > creator.nthreads:
+            return HttpResponse(json.dumps(jh.nothing_found))
+
         error = funct.close_open(json_data, True)
         json_data = create_responce(json_data)
         if (error == 0):
@@ -94,7 +101,7 @@ def list(request):
 def listPosts(request):
     list = Post_listing()
     answer = list.thread(request)
-    print answer
+    #print answer
     return answer
 
 
@@ -102,6 +109,9 @@ def listPosts(request):
 def open(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
+        id = json_data['thread']
+        if id < 1 or id > creator.nthreads:
+            return HttpResponse(json.dumps(jh.nothing_found))
         error = funct.close_open(json_data, False)
         json_data = create_responce(json_data)
         if (error == 0):
@@ -114,11 +124,14 @@ def open(request):
 def remove(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
-        #print "thread remove"
-        #print json_data
+        id = json_data['thread']
+        if id < 1 or id > creator.nthreads:
+            return HttpResponse(json.dumps(jh.nothing_found))
+        # print "thread remove"
+        # print json_data
         error = funct.remove_restore(json_data, True)
         json_data = create_responce(json_data)
-        #print json_data
+        # print json_data
         if (error == 0):
             return HttpResponse(json_data)
         else:
@@ -129,11 +142,14 @@ def remove(request):
 def restore(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
-        #print "thread restore"
-        #print json_data
+        id = json_data['thread']
+        if id < 1 or id > creator.nthreads:
+            return HttpResponse(json.dumps(jh.nothing_found))
+        # print "thread restore"
+        # print json_data
         error = funct.remove_restore(json_data, False)
         json_data = create_responce(json_data)
-        #print json_data
+        # print json_data
         if (error == 0):
             return HttpResponse(json_data)
         else:
@@ -144,6 +160,9 @@ def restore(request):
 def subscribe(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
+        id = json_data['thread']
+        if id < 1 or id > creator.nthreads:
+            return HttpResponse(json.dumps(jh.nothing_found))
         # print "subscribe\n"
         # print json_data
         error = funct.subscribe(json_data)
@@ -159,6 +178,9 @@ def subscribe(request):
 def unsubscribe(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
+        id = json_data['thread']
+        if id < 1 or id > creator.nthreads:
+            return HttpResponse(json.dumps(jh.nothing_found))
         error = funct.unsubscribe(json_data)
         json_data = create_responce(json_data)
         if (error == 0):
@@ -171,6 +193,9 @@ def unsubscribe(request):
 def update(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
+        id = json_data['thread']
+        if id < 1 or id > creator.nthreads:
+            return HttpResponse(json.dumps(jh.nothing_found))
         error, json_dict = funct.thread_update(json_data)
         json_data = create_responce(json_dict)
         if (error == 0):
@@ -183,6 +208,9 @@ def update(request):
 def vote(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
+        id = json_data['thread']
+        if id < 1 or id > creator.nthreads:
+            return HttpResponse(json.dumps(jh.nothing_found))
         bool = True
         if (json_data.get("vote") < 0):
             bool = False

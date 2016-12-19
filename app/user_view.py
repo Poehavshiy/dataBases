@@ -6,9 +6,12 @@ from json_handle import create_responce
 import json_handle as jh
 import details as d
 from post_functions import Post_listing
+from general import creator
 
 def details(request):
-    user = request.GET['user']
+    user = request.GET.get('user', None)
+    if user == None:
+        return HttpResponse(json.dumps(jh.invalid_request))
 
     json_dict = d.user_details(user, 1)
     if (json_dict == None):
@@ -18,8 +21,6 @@ def details(request):
 
 @csrf_exempt
 def create(request):
-    #{"username": null, "about": null, "isAnonymous": true, "name": null, "email": "richard.nixon@example.com"}
-    #{"username": "None", "about": "None", "isAnonymous": "True", "name": "None, "email": "richard.nixon@example.com"}
     if request.method == 'POST':
         try:
             #print "user create\n"
@@ -27,13 +28,12 @@ def create(request):
             json_data = json.loads(request.body)
         except ValueError:
             return HttpResponse(json.dumps(jh.invalid_request))
-        error, json_dict = d.create(json_data, "user")
+
+        error, json_dict = creator.create_user(json_data)
         if json_dict == None:
-            #print json.dumps(jh.already_exists)
             return HttpResponse(json.dumps(jh.already_exists))
         json_data = create_responce(json_dict)
-        #print "\n", json_data
-        #return HttpResponse(json.dumps(json_data))
+        # print json_data
         return HttpResponse(json_data)
 
 #who follows this user

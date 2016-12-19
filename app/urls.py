@@ -6,6 +6,79 @@ from . import thread_view
 from . import post_view
 from . import general
 
+"""
+/*
+CREATE TABLE Followers (
+email1 VARCHAR(255) NOT NULL,
+email1 VARCHAR(255) NOT NULL,
+Primary key (email1, email2)
+)
+*/
+/*
+CREATE TABLE Subscriptions (
+email VARCHAR(255) NOT NULL,
+tid integer NOT NULL,
+Primary key (email, tid)
+);
+*/
+/*
+CREATE TABLE User(
+	about text,
+	email VARCHAR(255) unique,
+	id INT auto_increment primary key,
+	isAnonymous bool,
+	name varchar(1024),
+	username varchar(1024)
+);
+*/
+/*
+CREATE TABLE Post(
+	date datetime,
+	forum varchar(255),
+	id INT auto_increment primary key,
+	isApproved bool,
+	isDeleted bool,
+	isEdited bool,
+	isHighlighted bool,
+	isSpam bool,
+	message text,
+	parent INT,
+	thread INT,
+	user varchar(255),
+	likes INT,
+	dislikes INT,
+	points INT,
+	path varchar(1024),
+	sortpath varchar(1024)
+);
+*/
+/*
+create TABLE Thread(
+	date datetime,
+	forum varchar(1024),
+	id INT auto_increment primary key,
+	isClosed bool,
+	isDeleted bool,
+	message text,
+	slug varchar(1024),
+	title varchar(1024),
+	user varchar(255),
+	likes INT,
+	dislikes INT,
+	points INT,
+	posts INT
+);
+*/
+#drop table Forum;
+/*
+create table Forum(
+	id INT auto_increment primary key,
+	name varchar(512) Unique,
+	short_name varchar(512) Unique,
+	user varchar(255)
+);
+*/"""
+
 
 urlpatterns = [
     #general

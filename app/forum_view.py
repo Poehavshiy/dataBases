@@ -6,6 +6,7 @@ import details as d
 import json_handle as jh
 from json_handle import create_responce
 from post_functions import Post_listing
+from general import creator
 
 
 
@@ -28,6 +29,7 @@ def listPosts(request):
     list = Post_listing()
     return list.forum(request)
 #####
+
 def list_threads(request):
     #print request
     target_forum = ""
@@ -78,7 +80,7 @@ def create(request):
         except ValueError as error:
             return HttpResponse(json.dumps(jh.invalid_request))
 
-        error, json_dict = d.create(json_data, "forum")
+        error, json_dict = creator.create_forum(json_data)
         if json_dict == None:
             return HttpResponse(json.dumps(jh.already_exists))
         json_data = create_responce(json_dict)

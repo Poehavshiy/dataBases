@@ -1,50 +1,71 @@
 import queries as Q
 import json_handle as jh
 from sqlalchemy import exc
+from general import max_id
 
+def repair_userr_add(base_dict):
+    if base_dict["followers"] == None:
+        base_dict["followers"] = []
+    else:
+        base_dict["followers"] = base_dict["followers"].split()
 
-def max_id(table):
-    rs = jh.engine.execute(Q.max_id(table))
-    base_dict = jh.create_dict_base(rs)
-    id = base_dict.get("max(id)")
-    return id
+    if base_dict["following"] == None:
+        base_dict["following"] = []
+    else:
+        base_dict["following"] = base_dict["following"].split()
+
+    if base_dict["subscriptions"] == None:
+        base_dict["subscriptions"] = []
+    else:
+        debug = base_dict["subscriptions"].split(",")
+        debug = [int(x) for x in debug if x != ""]
+        base_dict["subscriptions"] = debug
 
 def user_details(email, add = None):
-    query = Q.user_details(email)
-    rs = jh.engine.execute(query)
-    base_dict = jh.create_dict_base(rs)
+    connection = jh.engine.connect()
+    #
     if add == None:
+        query = Q.user_details(email)
+        rs = connection.execute(query)
+        base_dict = jh.create_dict_base(rs)
+        connection.close()
         return base_dict
-    ##followers
-    rs = jh.engine.execute(Q.users_followers(email))
-    base_dict["followers"] = jh.create_list_response(rs)
-    ##follow
-    rs = jh.engine.execute(Q.user_follows(email))
-    base_dict["following"] = jh.create_list_response(rs)
-    ##subcriptions
-    query = Q.users_subscriptions(email)
-    rs = jh.engine.execute(query)
-    base_dict["subscriptions"] = jh.create_list_response(rs)
-    return base_dict
+    else:
+        query = Q.user_details_real(email)
+        rs = connection.execute(query)
+        base_dict = jh.create_dict_base(rs)
+        repair_userr_add(base_dict)
+        connection.close()
+        return base_dict
 
 
 def forum_details(forum, user):
+    connection = jh.engine.connect()
+    #
     query = Q.forum_details(forum)
-    rs = jh.engine.execute(query)
+    rs = connection.execute(query)
     base_dict = jh.create_dict_base(rs)
     if(base_dict == None):
+        connection.close()
         return base_dict
+
     if (user != None):
         user = base_dict["user"]
         user_dict = user_details(user)
         base_dict['user'] = user_dict
+    connection.close()
     return base_dict
 
 
 def thread_details(id, user, forum, likes):
+    connection = jh.engine.connect()
+    #
     query = Q.thread_details(id, likes)
-    rs = jh.engine.execute(query)
+    rs = connection.execute(query)
     base_dict = jh.create_dict_base(rs)
+    if base_dict == None:
+        connection.close()
+        return base_dict
     if (user != None):
         user = base_dict["user"]
         user_dict = user_details(user)
@@ -53,33 +74,43 @@ def thread_details(id, user, forum, likes):
         forum = base_dict["forum"]
         forum_dict = forum_details(forum, None)
         base_dict['forum'] = forum_dict
+    connection.close()
     return base_dict
 
 def get_path_sortpath(parent_id):
+    connection = jh.engine.connect()
+    #
     query = Q.get_path_spath(parent_id)
-    rs = jh.engine.execute(query)
+    rs = connection.execute(query)
     data = list(rs)
     path = data[0][0]
     sortpath = data[0][1]
+    connection.close()
     return path, sortpath
 
 def build_post_path_sortpath(answer):
+    connection = jh.engine.connect()
+    #
     id = answer.get("id")
     parent_id = answer.get("parent")
     if parent_id == -1:
         sortpath = answer.get("date")
         query = Q.set_path_sortpath("", sortpath,id)
-        jh.engine.execute(query)
+        connection.execute(query)
+        connection.close()
         return
     path, sortpath = get_path_sortpath(parent_id)
     sortpath += " " + answer.get("date")
     query = Q.set_path_sortpath(path, sortpath, id)
-    jh.engine.execute(query)
+    connection.execute(query)
+    connection.close()
     return
 
 def post_details(id, user, forum, thread):
+    connection = jh.engine.connect()
+    #
     query = Q.post_details(id)
-    rs = jh.engine.execute(query)
+    rs = connection.execute(query)
     base_dict = jh.create_dict_base(rs)
 
     if (user != None):
@@ -94,9 +125,12 @@ def post_details(id, user, forum, thread):
         thread = base_dict["thread"]
         dict = thread_details(thread, None, None, "likes")
         base_dict['thread'] = dict
+    connection.close()
     return base_dict
 
 def create(for_inserting, entity):
+    connection = jh.engine.connect()
+    #
     #print "CREATE"
     #print for_inserting
     error_resp = 0
@@ -106,16 +140,18 @@ def create(for_inserting, entity):
     if entity == "user":
         query = Q.user_create(values)
         try:
-            jh.engine.execute(query)
+            connection.execute(query)
         except exc.SQLAlchemyError:
+            connection.close()
             return 1, None
         answer = user_details(for_inserting.get("email"))
 
     elif entity == "forum":
         query = Q.forum_create(values)
         try:
-            jh.engine.execute(query)
+            connection.execute(query)
         except exc.SQLAlchemyError:
+            connection.close()
             return 1, None
         key = for_inserting.get("short_name")
         answer = forum_details(key, None)
@@ -124,9 +160,10 @@ def create(for_inserting, entity):
         query = Q.post_create(values)
         query1 = Q.threads_posts_change(values, False)
         try:
-            jh.engine.execute(query)
-            jh.engine.execute(query1)
+            connection.execute(query)
+            connection.execute(query1)
         except exc.SQLAlchemyError:
+            connection.close()
             return 1, None
         answer = post_details(max_id("Post"), None, None, None)
         build_post_path_sortpath(answer)
@@ -134,10 +171,12 @@ def create(for_inserting, entity):
     elif entity == "thread":
         query = Q.thread_create(values)
         try:
-            jh.engine.execute(query)
+            connection.execute(query)
         except exc.SQLAlchemyError:
+            connection.close()
             return 1, None
         answer = thread_details(max_id("Thread"), None, None, None)
+    connection.close()
     return error_resp, answer
 
 

@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3f167c9a-e874-482b-99f4-f7eb88d2530d" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/details.py" afterPath="$PROJECT_DIR$/app/details.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forum_functions.py" afterPath="$PROJECT_DIR$/app/forum_functions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forum_view.py" afterPath="$PROJECT_DIR$/app/forum_view.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/general.py" afterPath="$PROJECT_DIR$/app/general.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/post_functions.py" afterPath="$PROJECT_DIR$/app/post_functions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/post_view.py" afterPath="$PROJECT_DIR$/app/post_view.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/queries.py" afterPath="$PROJECT_DIR$/app/queries.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/thread_functions.py" afterPath="$PROJECT_DIR$/app/thread_functions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/thread_view.py" afterPath="$PROJECT_DIR$/app/thread_view.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/urls.py" afterPath="$PROJECT_DIR$/app/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/user_functions.py" afterPath="$PROJECT_DIR$/app/user_functions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/user_view.py" afterPath="$PROJECT_DIR$/app/user_view.py" />
+    </list>
+    <ignored path="DBapplication.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="DBapplication" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="forum_functions.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/forum_functions.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="525">
+              <caret line="59" column="44" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="44" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#88#914#1" expanded="false" />
+                <element signature="e#2018#2512#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="post_functions.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/post_functions.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7">
+              <caret line="3" column="10" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
+              <folding>
+                <element signature="e#142#4921#0" expanded="false" />
+                <element signature="e#291#512#0" expanded="false" />
+                <element signature="e#555#699#0" expanded="false" />
+                <element signature="e#738#1476#0" expanded="false" />
+                <element signature="e#1516#3466#0" expanded="false" />
+                <element signature="e#3507#4741#0" expanded="false" />
+                <element signature="e#4780#4921#0" expanded="false" />
+                <element signature="e#4965#5195#0" expanded="false" />
+                <element signature="e#5260#5773#0" expanded="false" />
+                <element signature="e#5823#6509#0" expanded="false" />
+                <element signature="e#6553#6851#0" expanded="false" />
+                <element signature="e#6899#7196#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="queries.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/queries.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="59" column="30" selection-start-line="59" selection-start-column="30" selection-end-line="59" selection-end-column="30" />
+              <folding>
+                <element signature="e#258#586#0" expanded="false" />
+                <element signature="e#634#930#0" expanded="false" />
+                <element signature="e#962#1096#0" expanded="false" />
+                <element signature="e#1129#1323#0" expanded="false" />
+                <element signature="e#3163#4237#0" expanded="false" />
+                <element signature="e#4269#4396#0" expanded="false" />
+                <element signature="e#4428#4565#0" expanded="false" />
+                <element signature="e#4622#5745#0" expanded="false" />
+                <element signature="e#5779#5916#0" expanded="false" />
+                <element signature="e#5984#6630#0" expanded="false" />
+                <element signature="e#6669#6829#0" expanded="false" />
+                <element signature="e#6865#7118#0" expanded="false" />
+                <element signature="e#7156#7391#0" expanded="false" />
+                <element signature="e#7427#7718#0" expanded="false" />
+                <element signature="e#7771#8195#0" expanded="false" />
+                <marker date="1482171359952" expanded="true" signature="289:337" ph="INSERT INTO Forum... " />
+                <marker date="1482171359952" expanded="true" signature="994:1042" ph="select * fro... Forum" />
+                <marker date="1482171359952" expanded="true" signature="1160:1195" ph="select * fro... User" />
+                <marker date="1482171359952" expanded="true" signature="1218:1270" ph="select user Forum" />
+                <marker date="1482171359952" expanded="true" signature="1410:1454" ph="select * fro... Thread" />
+                <marker date="1482171359952" expanded="true" signature="1919:1952" ph="select * fro... User" />
+                <marker date="1482171359952" expanded="true" signature="3349:3419" ph="INSERT INTO User... " />
+                <marker date="1482171359952" expanded="true" signature="3827:3897" ph="INSERT INTO User... " />
+                <marker date="1482171359952" expanded="true" signature="4301:4343" ph="select * fro... User" />
+                <marker date="1482171359952" expanded="true" signature="4459:4512" ph="select email... Followers" />
+                <marker date="1482171359952" expanded="true" signature="5810:5863" ph="select email... Followers" />
+                <marker date="1482171359952" expanded="true" signature="6015:6048" ph="select * fro... User" />
+                <marker date="1482171359952" expanded="true" signature="6700:6729" ph="select tid f... Subscriptions" />
+                <marker date="1482171359952" expanded="true" signature="6896:6937" ph="INSERT INTO Followers... " />
+                <marker date="1482171359952" expanded="true" signature="7187:7214" ph="DELETE FROM " />
+                <marker date="1482171359952" expanded="true" signature="7489:7539" ph="UPDATE User " />
+                <marker date="1482171359952" expanded="true" signature="7803:7845" ph="select * fro... Thread" />
+                <marker date="1482171359952" expanded="true" signature="8900:9053" ph="INSERT INTO Thread... " />
+                <marker date="1482171359952" expanded="true" signature="9925:9964" ph="select missi... Thread" />
+                <marker date="1482171359952" expanded="true" signature="10078:10119" ph="UPDATE Threa... " />
+                <marker date="1482171359952" expanded="true" signature="10319:10349" ph="UPDATE Threa... " />
+                <marker date="1482171359952" expanded="true" signature="10610:10651" ph="select count... Post" />
+                <marker date="1482171359952" expanded="true" signature="10857:10883" ph="UPDATE Threa... " />
+                <marker date="1482171359952" expanded="true" signature="11068:11109" ph="INSERT INTO Subscriptions... " />
+                <marker date="1482171359952" expanded="true" signature="11382:11407" ph="DELETE FROM " />
+                <marker date="1482171359952" expanded="true" signature="11714:11754" ph="UPDATE Threa... " />
+                <marker date="1482171359952" expanded="true" signature="12074:12130" ph="UPDATE Threa... " />
+                <marker date="1482171359952" expanded="true" signature="12167:12229" ph="UPDATE Threa... " />
+                <marker date="1482171359952" expanded="true" signature="12454:12489" ph="UPDATE Threa... " />
+                <marker date="1482171359952" expanded="true" signature="12526:12561" ph="UPDATE Threa... " />
+                <marker date="1482171359952" expanded="true" signature="13438:13540" ph="INSERT INTO Post... " />
+                <marker date="1482171359952" expanded="true" signature="14564:14594" ph="select * fro... Post" />
+                <marker date="1482171359952" expanded="true" signature="14694:14734" ph="UPDATE Post " />
+                <marker date="1482171359952" expanded="true" signature="14930:14970" ph="UPDATE Post " />
+                <marker date="1482171359952" expanded="true" signature="15167:15210" ph="UPDATE Post " />
+                <marker date="1482171359952" expanded="true" signature="15440:15494" ph="UPDATE Post " />
+                <marker date="1482171359952" expanded="true" signature="15531:15591" ph="UPDATE Post " />
+                <marker date="1482171359952" expanded="true" signature="15730:15750" ph="select max(i... missing_value" />
+                <marker date="1482171359952" expanded="true" signature="15821:15864" ph="select path,... Post" />
+                <marker date="1482171359952" expanded="true" signature="15984:16052" ph="UPDATE Post " />
+                <marker date="1482171359952" expanded="true" signature="16218:16261" ph="select missi... Post" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/app/user_view.py" />
+        <option value="$PROJECT_DIR$/app/post_view.py" />
+        <option value="$PROJECT_DIR$/app/details.py" />
+        <option value="$PROJECT_DIR$/app/thread_view.py" />
+        <option value="$PROJECT_DIR$/app/forum_functions.py" />
+        <option value="$PROJECT_DIR$/app/queries.py" />
+        <option value="$PROJECT_DIR$/app/post_functions.py" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="65" />
+    <option name="y" value="24" />
+    <option name="width" value="1301" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DBapplication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DBapplication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DBapplication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DBapplication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DBapplication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
+  </component>
+  <component name="RunManager" selected="Django server.DBapplication">
+    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DBapplication" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DBapplication" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PyLettuceRunConfigurationType" factoryName="Lettuce">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DBapplication" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DBapplication" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DBapplication" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <module name="DBapplication" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DBapplication" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DBapplication" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DBapplication" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DBapplication" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DBapplication" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="testToRun" value="" />
+      <option name="keywords" value="" />
+      <option name="params" value="" />
+      <option name="USE_PARAM" value="false" />
+      <option name="USE_KEYWORD" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="DBapplication" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="DBapplication.settings" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="DBapplication" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Django server.DBapplication" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3f167c9a-e874-482b-99f4-f7eb88d2530d" name="Default" comment="" />
+      <created>1482152975254</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1482152975254</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="65" y="24" width="1301" height="744" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24980783" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20478326" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="13" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/forum_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#88#914#1" expanded="false" />
+            <element signature="e#2018#2512#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/queries.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1125">
+          <caret line="75" column="26" selection-start-line="75" selection-start-column="26" selection-end-line="75" selection-end-column="26" />
+          <folding>
+            <element signature="e#258#586#0" expanded="false" />
+            <element signature="e#634#930#0" expanded="false" />
+            <element signature="e#962#1096#0" expanded="false" />
+            <element signature="e#1129#1323#0" expanded="false" />
+            <element signature="e#3163#4237#0" expanded="false" />
+            <element signature="e#4269#4396#0" expanded="false" />
+            <element signature="e#4428#4565#0" expanded="false" />
+            <element signature="e#4622#5745#0" expanded="false" />
+            <element signature="e#5779#5916#0" expanded="false" />
+            <element signature="e#5984#6630#0" expanded="false" />
+            <element signature="e#6669#6829#0" expanded="false" />
+            <element signature="e#6865#7118#0" expanded="false" />
+            <element signature="e#7156#7391#0" expanded="false" />
+            <element signature="e#7427#7718#0" expanded="false" />
+            <element signature="e#7771#8195#0" expanded="false" />
+            <marker date="1482171359952" expanded="true" signature="289:337" ph="INSERT INTO Forum... " />
+            <marker date="1482171359952" expanded="true" signature="994:1042" ph="select * fro... Forum" />
+            <marker date="1482171359952" expanded="true" signature="1160:1195" ph="select * fro... User" />
+            <marker date="1482171359952" expanded="true" signature="1218:1270" ph="select user Forum" />
+            <marker date="1482171359952" expanded="true" signature="1410:1454" ph="select * fro... Thread" />
+            <marker date="1482171359952" expanded="true" signature="1919:1952" ph="select * fro... User" />
+            <marker date="1482171359952" expanded="true" signature="3349:3419" ph="INSERT INTO User... " />
+            <marker date="1482171359952" expanded="true" signature="3827:3897" ph="INSERT INTO User... " />
+            <marker date="1482171359952" expanded="true" signature="4301:4343" ph="select * fro... User" />
+            <marker date="1482171359952" expanded="true" signature="4459:4512" ph="select email... Followers" />
+            <marker date="1482171359952" expanded="true" signature="5810:5863" ph="select email... Followers" />
+            <marker date="1482171359952" expanded="true" signature="6015:6048" ph="select * fro... User" />
+            <marker date="1482171359952" expanded="true" signature="6700:6729" ph="select tid f... Subscriptions" />
+            <marker date="1482171359952" expanded="true" signature="6896:6937" ph="INSERT INTO Followers... " />
+            <marker date="1482171359952" expanded="true" signature="7187:7214" ph="DELETE FROM " />
+            <marker date="1482171359952" expanded="true" signature="7489:7539" ph="UPDATE User " />
+            <marker date="1482171359952" expanded="true" signature="7803:7845" ph="select * fro... Thread" />
+            <marker date="1482171359952" expanded="true" signature="8900:9053" ph="INSERT INTO Thread... " />
+            <marker date="1482171359952" expanded="true" signature="9925:9964" ph="select missi... Thread" />
+            <marker date="1482171359952" expanded="true" signature="10078:10119" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="10319:10349" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="10610:10651" ph="select count... Post" />
+            <marker date="1482171359952" expanded="true" signature="10857:10883" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="11068:11109" ph="INSERT INTO Subscriptions... " />
+            <marker date="1482171359952" expanded="true" signature="11382:11407" ph="DELETE FROM " />
+            <marker date="1482171359952" expanded="true" signature="11714:11754" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="12074:12130" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="12167:12229" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="12454:12489" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="12526:12561" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="13438:13540" ph="INSERT INTO Post... " />
+            <marker date="1482171359952" expanded="true" signature="14564:14594" ph="select * fro... Post" />
+            <marker date="1482171359952" expanded="true" signature="14694:14734" ph="UPDATE Post " />
+            <marker date="1482171359952" expanded="true" signature="14930:14970" ph="UPDATE Post " />
+            <marker date="1482171359952" expanded="true" signature="15167:15210" ph="UPDATE Post " />
+            <marker date="1482171359952" expanded="true" signature="15440:15494" ph="UPDATE Post " />
+            <marker date="1482171359952" expanded="true" signature="15531:15591" ph="UPDATE Post " />
+            <marker date="1482171359952" expanded="true" signature="15730:15750" ph="select max(i... missing_value" />
+            <marker date="1482171359952" expanded="true" signature="15821:15864" ph="select path,... Post" />
+            <marker date="1482171359952" expanded="true" signature="15984:16052" ph="UPDATE Post " />
+            <marker date="1482171359952" expanded="true" signature="16218:16261" ph="select missi... Post" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="184" column="0" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/user_view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_bundle/pydev_monkey_qt.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/details.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="73">
+          <caret line="5" column="20" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#19#0" expanded="false" />
+            <element signature="e#137#673#0" expanded="false" />
+            <element signature="e#1210#1615#0" expanded="false" />
+            <element signature="e#1666#2221#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/post_view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="41" column="11" selection-start-line="41" selection-start-column="6" selection-end-line="41" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#75#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/general.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="91" column="9" selection-start-line="91" selection-start-column="4" selection-end-line="91" selection-end-column="9" />
+          <folding>
+            <marker date="1479914161879" expanded="true" signature="2852:2898" ph="ALTER TABLE Post... " />
+            <marker date="1479914161879" expanded="true" signature="2924:2972" ph="ALTER TABLE Thread... " />
+            <marker date="1479914161879" expanded="true" signature="2998:3045" ph="ALTER TABLE Forum... " />
+            <marker date="1479914161879" expanded="true" signature="3071:3117" ph="ALTER TABLE User... " />
+            <marker date="1479914161879" expanded="true" signature="3845:3872" ph="select count... missing_value" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/thread_view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="58" column="21" selection-start-line="58" selection-start-column="21" selection-end-line="58" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#75#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/queries.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="59" column="30" selection-start-line="59" selection-start-column="30" selection-end-line="59" selection-end-column="30" />
+          <folding>
+            <element signature="e#258#586#0" expanded="false" />
+            <element signature="e#634#930#0" expanded="false" />
+            <element signature="e#962#1096#0" expanded="false" />
+            <element signature="e#1129#1323#0" expanded="false" />
+            <element signature="e#3163#4237#0" expanded="false" />
+            <element signature="e#4269#4396#0" expanded="false" />
+            <element signature="e#4428#4565#0" expanded="false" />
+            <element signature="e#4622#5745#0" expanded="false" />
+            <element signature="e#5779#5916#0" expanded="false" />
+            <element signature="e#5984#6630#0" expanded="false" />
+            <element signature="e#6669#6829#0" expanded="false" />
+            <element signature="e#6865#7118#0" expanded="false" />
+            <element signature="e#7156#7391#0" expanded="false" />
+            <element signature="e#7427#7718#0" expanded="false" />
+            <element signature="e#7771#8195#0" expanded="false" />
+            <marker date="1482171359952" expanded="true" signature="289:337" ph="INSERT INTO Forum... " />
+            <marker date="1482171359952" expanded="true" signature="994:1042" ph="select * fro... Forum" />
+            <marker date="1482171359952" expanded="true" signature="1160:1195" ph="select * fro... User" />
+            <marker date="1482171359952" expanded="true" signature="1218:1270" ph="select user Forum" />
+            <marker date="1482171359952" expanded="true" signature="1410:1454" ph="select * fro... Thread" />
+            <marker date="1482171359952" expanded="true" signature="1919:1952" ph="select * fro... User" />
+            <marker date="1482171359952" expanded="true" signature="3349:3419" ph="INSERT INTO User... " />
+            <marker date="1482171359952" expanded="true" signature="3827:3897" ph="INSERT INTO User... " />
+            <marker date="1482171359952" expanded="true" signature="4301:4343" ph="select * fro... User" />
+            <marker date="1482171359952" expanded="true" signature="4459:4512" ph="select email... Followers" />
+            <marker date="1482171359952" expanded="true" signature="5810:5863" ph="select email... Followers" />
+            <marker date="1482171359952" expanded="true" signature="6015:6048" ph="select * fro... User" />
+            <marker date="1482171359952" expanded="true" signature="6700:6729" ph="select tid f... Subscriptions" />
+            <marker date="1482171359952" expanded="true" signature="6896:6937" ph="INSERT INTO Followers... " />
+            <marker date="1482171359952" expanded="true" signature="7187:7214" ph="DELETE FROM " />
+            <marker date="1482171359952" expanded="true" signature="7489:7539" ph="UPDATE User " />
+            <marker date="1482171359952" expanded="true" signature="7803:7845" ph="select * fro... Thread" />
+            <marker date="1482171359952" expanded="true" signature="8900:9053" ph="INSERT INTO Thread... " />
+            <marker date="1482171359952" expanded="true" signature="9925:9964" ph="select missi... Thread" />
+            <marker date="1482171359952" expanded="true" signature="10078:10119" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="10319:10349" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="10610:10651" ph="select count... Post" />
+            <marker date="1482171359952" expanded="true" signature="10857:10883" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="11068:11109" ph="INSERT INTO Subscriptions... " />
+            <marker date="1482171359952" expanded="true" signature="11382:11407" ph="DELETE FROM " />
+            <marker date="1482171359952" expanded="true" signature="11714:11754" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="12074:12130" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="12167:12229" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="12454:12489" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="12526:12561" ph="UPDATE Threa... " />
+            <marker date="1482171359952" expanded="true" signature="13438:13540" ph="INSERT INTO Post... " />
+            <marker date="1482171359952" expanded="true" signature="14564:14594" ph="select * fro... Post" />
+            <marker date="1482171359952" expanded="true" signature="14694:14734" ph="UPDATE Post " />
+            <marker date="1482171359952" expanded="true" signature="14930:14970" ph="UPDATE Post " />
+            <marker date="1482171359952" expanded="true" signature="15167:15210" ph="UPDATE Post " />
+            <marker date="1482171359952" expanded="true" signature="15440:15494" ph="UPDATE Post " />
+            <marker date="1482171359952" expanded="true" signature="15531:15591" ph="UPDATE Post " />
+            <marker date="1482171359952" expanded="true" signature="15730:15750" ph="select max(i... missing_value" />
+            <marker date="1482171359952" expanded="true" signature="15821:15864" ph="select path,... Post" />
+            <marker date="1482171359952" expanded="true" signature="15984:16052" ph="UPDATE Post " />
+            <marker date="1482171359952" expanded="true" signature="16218:16261" ph="select missi... Post" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/forum_view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/forum_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="59" column="44" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#88#914#1" expanded="false" />
+            <element signature="e#2018#2512#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/post_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7">
+          <caret line="3" column="10" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
+          <folding>
+            <element signature="e#142#4921#0" expanded="false" />
+            <element signature="e#291#512#0" expanded="false" />
+            <element signature="e#555#699#0" expanded="false" />
+            <element signature="e#738#1476#0" expanded="false" />
+            <element signature="e#1516#3466#0" expanded="false" />
+            <element signature="e#3507#4741#0" expanded="false" />
+            <element signature="e#4780#4921#0" expanded="false" />
+            <element signature="e#4965#5195#0" expanded="false" />
+            <element signature="e#5260#5773#0" expanded="false" />
+            <element signature="e#5823#6509#0" expanded="false" />
+            <element signature="e#6553#6851#0" expanded="false" />
+            <element signature="e#6899#7196#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

@@ -18,6 +18,12 @@ def forum_create(ins_dict):
                   (short_name=ins_dict.get("short_name"), user=ins_dict.get("user")))
     return concatinate(s_list)
 
+def list_users_withthread_inforum(forum):
+    s_list = []
+    s_list.append("select User.email, User.id, User.name, User.about, User.isAnonymous, User.username ")
+    s_list.append(" from User inner join Thread on email = Thread.user Where ")
+    s_list.append("Thread.forum = '{forum}';".format(forum = forum))
+    return concatinate(s_list)
 
 def forum_details(forum):
     s_list = []
@@ -45,12 +51,13 @@ def forums_threads(forum, since, limit, order):
         s_list.append(u" LIMIT {limit} ".format(limit=limit))
     return concatinate(s_list)
 
-
+#users with posts at forum
 def forums_users(forum, since, limit, order):
     s_list = []
     s_list.append("select * from User where email in ")
     s_list.append(" (select user from Post where forum = '{forum}' ) ".format(forum=forum))
-    s_list.append(" and id >= {since} ".format(since=since))
+    if since != None:
+        s_list.append(" and id >= {since} ".format(since=since))
     if order == "desc":
         s_list.append(" Order by User.name  desc")
     else:
@@ -59,6 +66,18 @@ def forums_users(forum, since, limit, order):
         s_list.append(" LIMIT {limit} ".format(limit=limit))
     return concatinate(s_list)
 
+def users_with_thread_inforum(forum):
+    s_list = []
+    s_list.append("select u. *, GROUP_CONCAT(DISTINCT CONCAT(f1.email2)) as following, ")
+    s_list.append("GROUP_CONCAT(DISTINCT CONCAT(f2.email1)) as followers, ")
+    s_list.append("GROUP_CONCAT(DISTINCT CONCAT(s.tid)) as subscriptions ")
+    s_list.append("from User as u left join Followers as f1 on f1.email1 = email ")
+    s_list.append("left join Followers as f2 on f2.email2 = email left join ")
+    s_list.append("Subscriptions as s on u.email = s.email where ")
+    s_list.append("u.email in ")
+    s_list.append("(Select user from Thread where forum = '{forum}') ".format(forum = forum))
+    s_list.append(" group by u.email;")
+    return concatinate(s_list)
 
 ############## USER'S
 def user_create(ins_dict):
@@ -95,6 +114,26 @@ def user_follows(email):
     s_list.append("select email2 from Followers where email1 = '{email}'".format(email=email))
     return concatinate(s_list)
 
+
+def users_additional(forum, since, limit, order):
+    s_list = []
+    s_list.append(" SELECT u.email, u.id, u.name, u.about, u.isAnonymous, u.username, ")
+    s_list.append(" IF(CONCAT(f1.email2) != '', CONCAT(  GROUP_CONCAT(DISTINCT CONCAT(f1.email2))), '') followers,")
+    s_list.append(" IF(CONCAT(f2.email1) != '', CONCAT(  GROUP_CONCAT(DISTINCT CONCAT(f2.email1))), '') following," )
+    s_list.append(" IF(CONCAT(s.tid) != '', CONCAT(  GROUP_CONCAT(DISTINCT CONCAT(s.tid))), '') subscriptions")
+    s_list.append(" FROM User u Left JOIN Subscriptions s ON u.email = s.email ")
+    s_list.append(" Left JOIN Followers f1 ON f1.email1 = u.email ")
+    s_list.append(" Left JOIN Followers f2 ON f2.email2 = u.email ")
+    s_list.append(" WHERE u.email IN (select user from Post where forum = '{forum}') ".format(forum = forum))
+    s_list.append(" and u.id >= {since} ".format(since=since))
+    s_list.append(" GROUP BY u.email ")
+    if order == "desc":
+        s_list.append(" Order by u.name  desc ")
+    else:
+        s_list.append(" Order by u.name ")
+    if (limit != None):
+        s_list.append(" LIMIT {limit} ;".format(limit=limit))
+    return concatinate(s_list)
 
 def users_followers(email):
     s_list = []
@@ -166,6 +205,16 @@ def users_threads(user, since, limit, order):
         s_list.append(" LIMIT {limit} ".format(limit=limit))
     return concatinate(s_list)
 
+def user_details_real(email):
+    s_list = []
+    s_list.append("select u. *, GROUP_CONCAT(DISTINCT CONCAT(f1.email2)) as following, ")
+    s_list.append("GROUP_CONCAT(DISTINCT CONCAT(f2.email1)) as followers, ")
+    s_list.append("GROUP_CONCAT(DISTINCT CONCAT(s.tid)) as subscriptions ")
+    s_list.append("from User as u left join Followers as f1 on f1.email1 = email ")
+    s_list.append("left join Followers as f2 on f2.email2 = email left join ")
+    s_list.append("Subscriptions as s on u.email = s.email where ")
+    s_list.append("u.email =  '{email}' ".format(email=email))
+    return concatinate(s_list)
 
 ############## THREAD'S
 def thread_create(ins_dict):
@@ -263,8 +312,8 @@ def threads_posts_change(ins_dict, bool):
 
 
 ############## POST'S
-def post_create(ins_dict):
-    parent = -1
+
+def post_create_real(ins_dict, id):
     isApproved = ins_dict.get("isApproved", False)
     isHighlighted = ins_dict.get("isHighlighted", False)
     isEdited = ins_dict.get("isEdited", False)
@@ -273,18 +322,30 @@ def post_create(ins_dict):
     parent = ins_dict.get("parent", None)
     if parent == None:
         parent = -1
-        #######
+    ####
+    path =""
+    sortpath = ""
+    if parent == -1:
+        path = "'" + '/' + str(id) + "',"
+        sortpath =  "'" + ins_dict.get("date") + "'"
+    else:
+        path = "CONCAT(path, '{id}'), ".format(id = '/' + str(id))
+        sortpath = "CONCAT(sortpath, '{spath}')".format(spath = " " + ins_dict.get("date"))
+    ###########
     s_list = []
-    s_list.append("INSERT INTO Post (`date`,`forum` ,`isApproved`,`isDeleted` ,`isEdited` ,`isHighlighted`,")
-    s_list.append(u" `isSpam` ,`message`,`parent` ,`thread` ,`user`,`likes`,`dislikes`,`points`) ")
-
-    s_list.append(u" \nVALUES ( '{date}','{forum}' ".format(date=ins_dict.get("date"), forum=ins_dict.get("forum")))
+    s_list.append("INSERT INTO Post(`date`, `forum`, `isApproved`, `isDeleted`, `isEdited`," " `isHighlighted`, `isSpam`,")
+    s_list.append(" `message`, `parent`, `thread`, `user`, `likes`, `dislikes`, `points`, `path`, `sortpath`)  ")
+    s_list.append(u" Select '{date}','{forum}' ".format(date=ins_dict.get("date"), forum=ins_dict.get("forum")))
     s_list.append(u",{isApproved} ".format(isApproved=isApproved))
     s_list.append(u",{isDeleted}, {isEdited} ".format(isDeleted=isDeleted, isEdited=isEdited))
     s_list.append(u",{isHighlighted}, {isSpam} ".format(isHighlighted=isHighlighted, isSpam=isSpam))
     s_list.append(u",'{message}', {parent} ".format(message=ins_dict.get("message"), parent=parent))
     s_list.append(u",{thread}, '{user}' ".format(thread=ins_dict.get("thread"), user=ins_dict.get("user")))
-    s_list.append(u",{likes}, {dislikes}, {points} ) ".format(likes=0, dislikes=0, points=0))
+    s_list.append(u",{likes}, {dislikes}, {points},  ".format(likes=0, dislikes=0, points=0))
+    s_list.append(path)
+    s_list.append(sortpath)
+    if parent != -1:
+        s_list.append(" from Post where id = {parent_id} ;".format(parent_id = parent))
     return concatinate(s_list)
 
 

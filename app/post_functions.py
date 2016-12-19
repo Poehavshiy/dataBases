@@ -28,28 +28,32 @@ class Post_listing:
             d.pop("sortpath")
 
     def user(self, request):
+        connection = jh.engine.connect()
         # print request
         self.since_limit_order(request)
         user = "'" + request.GET["user"] + "'"
         query = Q.list_posts(self.since, self.order, "flat", "user", user)
-        rs = jh.engine.execute(query)
+        rs = connection.execute(query)
         base_dict = jh.list_of_dict(rs)
         if self.limit == None:
             self.limit = len(base_dict)
         base_dict = base_dict[:self.limit]
         if not base_dict:
             json_data = jh.create_responce(base_dict)
+            connection.close()
             return HttpResponse(json_data)
         self.repair(base_dict)
         json_data = jh.create_responce(base_dict)
         # print json_data
+        connection.close()
         return HttpResponse(json_data)
 
     def forum(self, request):
+        connection = jh.engine.connect()
         self.since_limit_order(request)
         forum = "'" + request.GET["forum"] + "'"
         query = Q.list_posts(self.since, self.order, "flat", "forum", forum)
-        rs = jh.engine.execute(query)
+        rs = connection.execute(query)
         base_dict = jh.list_of_dict(rs)
         if self.limit == None:
             self.limit = len(base_dict)
@@ -57,38 +61,58 @@ class Post_listing:
         if not base_dict:
             json_data = jh.create_responce(base_dict)
             # print json_data
+            connection.close()
             return HttpResponse(json_data)
         self.repair(base_dict)
 
-        related = []
-        if "related" in request.GET:
-            related = request.GET.getlist("related")
-        if 'user' in related:
-            for d in base_dict:
-                user = d.get("user")
-                d["user"] = det.user_details(user, None)
-        if 'forum' in related:
-            forum = base_dict[0].get("forum")
-            for d in base_dict:
-                d["forum"] = det.forum_details(forum, None)
-        if 'thread' in related:
-            for d in base_dict:
-                thread = d.get("thread")
-                d["thread"] = det.thread_details(thread, None, None, "likes")
+        related = request.GET.getlist("related", None)
+        users = {}
+        threads = {}
+        forum = {}
+        if related:
+            if 'user' in related:
+                query = Q.forums_users(base_dict[0].get("forum"), None, None, None)
+                rs = connection.execute(query)
+                user_list = jh.list_of_dict(rs)
+                for user in user_list:
+                    users.update({user.get("email"): user})
+            if 'forum' in related:
+                forum = det.forum_details(base_dict[0]['forum'], None)
+            if 'thread' in related:
+                query = Q.forums_threads(base_dict[0].get("forum"), None, None, None)
+                rs = connection.execute(query)
+                thread_list = jh.list_of_dict(rs)
+                for thread in thread_list:
+                    threads.update({thread.get("id"): thread})
+
+        for post in base_dict:
+            if users:
+                user = post.get("user")
+                post["user"] =  users.get(user)
+            if threads:
+                thread = post.get("thread")
+                post["thread"] = threads.get(thread)
+            if forum:
+                post["forum"] = forum
+
         json_data = jh.create_responce(base_dict)
         # print json_data
+        connection.close()
         return HttpResponse(json_data)
 
     def thread(self, request):
+        connection = jh.engine.connect()
+
         self.since_limit_order(request)
         self.sort = request.GET.get('sort', "flat")
         thread = request.GET["thread"]
         query = Q.list_posts(self.since, self.order, self.sort, "thread", thread)
-        rs = jh.engine.execute(query)
+        rs = connection.execute(query)
 
         base_dict = jh.list_of_dict(rs)
         if not base_dict:
             json_data = jh.create_responce(base_dict)
+            connection.close()
             return HttpResponse(json_data)
 
         if self.sort == "flat":
@@ -107,6 +131,7 @@ class Post_listing:
         self.repair(base_dict)
         json_data = jh.create_responce(base_dict)
         # print json_data
+        connection.close()
         return HttpResponse(json_data)
 
     def post(self, request):
@@ -150,40 +175,48 @@ def repair_desc_tree(base_dict, limit, order, sort_type):
 
 ####
 def remove_restore(for_inserting, bool):
+    connection = jh.engine.connect()
     error_resp = 0
     key_values = jh.create_insert_dict(for_inserting)
     json_dict = det.post_details(key_values.get("post"), None, None, None)
     # if post is already deleted
     if json_dict.get("isDeleted") == 1 and bool == True:
+        connection.close()
         return 0
     # if post is already restored
     if json_dict.get("isDeleted") == 0 and bool == False:
+        connection.close()
         return 0
     query = Q.remove_restore_post(key_values, bool)
-    jh.engine.execute(query)
+    connection.execute(query)
     # change threads posts
     query = Q.threads_posts_change(json_dict, bool)
-    jh.engine.execute(query)
+    connection.execute(query)
+    connection.close()
     return error_resp
 
 
 ####
 def post_update(for_inserting):
+    connection = jh.engine.connect()
     error_resp = 0
     key_values = jh.create_insert_dict(for_inserting)
     query = Q.update_post(key_values)
-    jh.engine.execute(query)
+    connection.execute(query)
     answer = det.post_details(key_values.get("post"), None, None, None)
+    connection.close()
     return error_resp, answer
 
 
 ####
 def post_vote(for_inserting, bool):
+    connection = jh.engine.connect()
     error_resp = 0
     key_values = jh.create_insert_dict(for_inserting)
     query = Q.vote(key_values, bool)
-    jh.engine.execute(query)
+    connection.execute(query)
     answer = det.post_details(key_values.get("post"), None, None, None)
+    connection.close()
     return error_resp, answer
 
 # r ={"vote": -1, "post": 5}
