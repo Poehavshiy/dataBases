@@ -26,6 +26,8 @@ def recalculate_posts(thread):
     query = Q.count_thread_posts(thread)
     rs = connection.execute(query)
     base_dict = jh.create_dict_base(rs)
+    if not base_dict:
+        return
     post_c = base_dict.get("c")
     #
     query = Q.set_posts(thread, post_c)
@@ -42,16 +44,16 @@ def remove_restore(for_inserting, bool):
     # if thread is already deleted
     if json_dict.get("isDeleted") == 1 and bool == True:
         connection.close()
-        return json_dict
+        return error_resp
     # if thread is already restored
     if json_dict.get("isDeleted") == 0 and bool == False:
         connection.close()
-        return json_dict
+        return error_resp
 
-    #1st thread
+    #1st update thread
     query = Q.remove_restore_thread(key_values, bool)
     connection.execute(query)
-    #2nd post
+    #then post
     query = Q.remove_restore_posts(key_values, bool)
     connection.execute(query)
     #if thread was restored

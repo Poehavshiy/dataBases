@@ -141,6 +141,7 @@ def remove(request):
 @csrf_exempt
 def restore(request):
     if request.method == 'POST':
+        print request.body
         json_data = json.loads(request.body)
         id = json_data['thread']
         if id < 1 or id > creator.nthreads:
