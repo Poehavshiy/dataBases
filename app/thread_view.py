@@ -6,7 +6,7 @@ import details as d
 import json_handle as jh
 from json_handle import create_responce
 from post_functions import Post_listing
-from general import creator
+from general import Creator, max_id
 
 
 def check_keys(list, check_list):
@@ -20,7 +20,7 @@ def details(request):
     # 'example@mail.ru'
     id = request.GET['thread']
     id = int(id)
-    if id < 1 or id > creator.nthreads:
+    if id < 1 or id > max_id("Thread"):
         return HttpResponse(json.dumps(jh.nothing_found))
     user = None
     forum = None
@@ -54,7 +54,7 @@ def create(request):
     # print "thread crate\n"
     # print request.body
     json_data = json.loads(request.body)
-    error, json_dict = creator.create_thread(json_data)
+    error, json_dict = Creator.create_thread(json_data)
     json_data = create_responce(json_dict)
     # print json_data
     if (error == 0):
@@ -68,7 +68,7 @@ def close(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
         id = json_data['thread']
-        if id < 1 or id > creator.nthreads:
+        if id < 1 or id > max_id("Thread"):
             return HttpResponse(json.dumps(jh.nothing_found))
 
         error = funct.close_open(json_data, True)
@@ -110,7 +110,7 @@ def open(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
         id = json_data['thread']
-        if id < 1 or id > creator.nthreads:
+        if id < 1 or id > max_id("Thread"):
             return HttpResponse(json.dumps(jh.nothing_found))
         error = funct.close_open(json_data, False)
         json_data = create_responce(json_data)
@@ -125,7 +125,7 @@ def remove(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
         id = json_data['thread']
-        if id < 1 or id > creator.nthreads:
+        if id < 1 or id > max_id("Thread"):
             return HttpResponse(json.dumps(jh.nothing_found))
         # print "thread remove"
         # print json_data
@@ -144,7 +144,7 @@ def restore(request):
         print request.body
         json_data = json.loads(request.body)
         id = json_data['thread']
-        if id < 1 or id > creator.nthreads:
+        if id < 1 or id > max_id("Thread"):
             return HttpResponse(json.dumps(jh.nothing_found))
         # print "thread restore"
         # print json_data
@@ -162,7 +162,7 @@ def subscribe(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
         id = json_data['thread']
-        if id < 1 or id > creator.nthreads:
+        if id < 1 or id > max_id("Thread"):
             return HttpResponse(json.dumps(jh.nothing_found))
         # print "subscribe\n"
         # print json_data
@@ -180,7 +180,7 @@ def unsubscribe(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
         id = json_data['thread']
-        if id < 1 or id > creator.nthreads:
+        if id < 1 or id > max_id("Thread"):
             return HttpResponse(json.dumps(jh.nothing_found))
         error = funct.unsubscribe(json_data)
         json_data = create_responce(json_data)
@@ -195,7 +195,7 @@ def update(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
         id = json_data['thread']
-        if id < 1 or id > creator.nthreads:
+        if id < 1 or id > max_id("Thread"):
             return HttpResponse(json.dumps(jh.nothing_found))
         error, json_dict = funct.thread_update(json_data)
         json_data = create_responce(json_dict)
@@ -210,7 +210,7 @@ def vote(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
         id = json_data['thread']
-        if id < 1 or id > creator.nthreads:
+        if id < 1 or id > max_id("Thread"):
             return HttpResponse(json.dumps(jh.nothing_found))
         bool = True
         if (json_data.get("vote") < 0):

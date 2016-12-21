@@ -6,7 +6,7 @@ import details as d
 import json_handle as jh
 from json_handle import create_responce
 from post_functions import Post_listing
-from general import creator
+from general import Creator
 
 
 
@@ -80,7 +80,7 @@ def create(request):
         except ValueError as error:
             return HttpResponse(json.dumps(jh.invalid_request))
 
-        error, json_dict = creator.create_forum(json_data)
+        error, json_dict = Creator.create_forum(json_data)
         if json_dict == None:
             return HttpResponse(json.dumps(jh.already_exists))
         json_data = create_responce(json_dict)

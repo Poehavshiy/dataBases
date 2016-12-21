@@ -5,7 +5,7 @@ import post_functions as funct
 import details as d
 import json_handle as jh
 from json_handle import create_responce
-from general import creator
+from general import Creator, max_id
 
 
 def details(request):
@@ -120,13 +120,13 @@ def create(request):
         try:
            # print request.body
             json_data = json.loads(request.body)
-            if json_data["thread"] < 1 or json_data["thread"] > creator.nthreads:
+            if json_data["thread"] < 1 or json_data["thread"] > max_id("Thread"):
                 return HttpResponse(json.dumps(jh.nothing_found))
         except ValueError:
             return HttpResponse(json.dumps(jh.invalid_request))
         # print "\n"
         # print request.body
-        error, json_dict = creator.create_post(json_data)
+        error, json_dict = Creator.create_post(json_data)
         if "parent" not in json_dict:
             json_dict["parent"] = None
 

@@ -6,7 +6,7 @@ from json_handle import create_responce
 import json_handle as jh
 import details as d
 from post_functions import Post_listing
-from general import creator
+from general import Creator
 
 def details(request):
     user = request.GET.get('user', None)
@@ -29,7 +29,7 @@ def create(request):
         except ValueError:
             return HttpResponse(json.dumps(jh.invalid_request))
 
-        error, json_dict = creator.create_user(json_data)
+        error, json_dict = Creator.create_user(json_data)
         if json_dict == None:
             return HttpResponse(json.dumps(jh.already_exists))
         json_data = create_responce(json_dict)

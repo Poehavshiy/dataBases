@@ -3,33 +3,6 @@ import json
 import  json_handle as jh
 import details as dt
 
-######
-
-"""def list_threads(target_forum, since = None, limit=None, order=None, user=None, forum=None):
-    connection = jh.engine.connect()
-    query = Q.forums_threads(target_forum, since, limit, order)
-    rs = connection.execute(query)
-    base_dict = jh.list_of_dict(rs)
-    if not base_dict:
-        return base_dict
-
-    if user != None:
-        target_forum = base_dict[0]["forum"]
-        query = Q.list_users_withthread_inforum(target_forum)
-        rs = connection.execute(query)
-        dict = jh.list_of_dict(rs)
-        i = 0
-        for item in base_dict:
-            item["user"] = dict[i]
-            i += 1
-
-    if forum != None:
-        forum_det = dt.forum_details(base_dict[0]["forum"], None)
-        for thread in base_dict:
-            thread["forum"] = forum_det
-
-    connection.close()
-    return base_dict"""
 
 ##rewrite
 def list_threads(target_forum, since = None, limit=None, order=None, user=None, forum=None):

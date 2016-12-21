@@ -16,32 +16,19 @@ def max_id(table):
 
 
 class Creator:
-    nposts = 0
-    nthreads = 0
-    nusers = 0
-    nforums = 0
 
-    def __init__(self):
-        self.nposts = max_id("Post")
-        self.nthreads = max_id("Thread")
-        self.nusers = max_id("User")
-        self.nforums = max_id("Forum")
-
-    def zeros(self):
-        self.nposts = 0
-        self.nthreads = 0
-        self.nusers = 0
-        self.nforums = 0
-
-    def general_creation(self, for_inserting, type,counter):
+    @staticmethod
+    def general_creation(for_inserting, type):
         connection = jh.engine.connect()
         values = jh.create_insert_dict(for_inserting)
         #
+
         query = None
         query1 = None
-        counter = counter + 1
+        posts = None
         if type == 0:
-            query = Q.post_create_real(values, counter)
+            posts = max_id("Post")
+            query = Q.post_create_real(values, posts)
             query1 = Q.threads_posts_change(values, False)
         elif type == 1:
             query = Q.thread_create(values)
@@ -55,41 +42,47 @@ class Creator:
             if query1 != None:
                 connection.execute(query1)
         except exc.SQLAlchemyError:
-            counter = counter - 1
             connection.close()
             return 1, None
 
-        for_inserting["id"] = counter
         connection.close()
         #
         if type == 0:
-            self.nposts = counter
+            p = None
+            if posts is None:
+                p = 1
+            else:
+                p = posts + 1
+            for_inserting["id"] = p
         elif type == 1:
-            self.nthreads = counter
+            for_inserting["id"] = max_id("Thread")
         elif type == 2:
-            self.nforums = counter
+            for_inserting["id"] = max_id("Forum")
         elif type == 3:
-            self.nusers = counter
+            for_inserting["id"] = max_id("User")
         #
         return 0, for_inserting
 
+    @staticmethod
+    def create_post(for_inserting):
+        return Creator.general_creation(for_inserting, 0)
 
-    def create_post(self, for_inserting):
-        return self.general_creation(for_inserting, 0, self.nposts)
+    @staticmethod
+    def create_thread(for_inserting):
+        return Creator.general_creation(for_inserting, 1)
 
-    def create_thread(self, for_inserting):
-        return self.general_creation(for_inserting, 1, self.nthreads)
+    @staticmethod
+    def create_forum(for_inserting ):
+        return Creator.general_creation(for_inserting, 2)
 
-    def create_forum(self,for_inserting ):
-        return self.general_creation(for_inserting, 2, self.nforums)
+    @staticmethod
+    def create_user(for_inserting):
+        return Creator.general_creation(for_inserting, 3)
 
-    def create_user(self, for_inserting):
-        return self.general_creation(for_inserting, 3, self.nusers)
-
-creator = Creator()
 
 def clear_all():
     print ' NEW TEST\n\n\n\ '
+
     query_list  = []
     query_list.append("TRUNCATE TABLE Forum")
     query_list.append("TRUNCATE TABLE User")
@@ -101,7 +94,6 @@ def clear_all():
     query_list.append("ALTER TABLE Thread CONVERT TO CHARACTER SET utf8")
     query_list.append("ALTER TABLE Forum CONVERT TO CHARACTER SET utf8")
     query_list.append("ALTER TABLE User CONVERT TO CHARACTER SET utf8")
-    creator.zeros()
 
     #jh.engine.execute('SET NAMES utf8;')
     #jh.engine.execute('SET CHARACTER SET utf8;')
@@ -142,9 +134,4 @@ def status(request):
     return HttpResponse(json_data)
 
 
-"""tables = calculate()
-data = {"user": tables[0], "thread": tables[1], "forum": tables[2], "post": tables[3]}
-resp_dict = {"code": 0, "response": data}
-print resp_dict"""
 #clear_all()
-
