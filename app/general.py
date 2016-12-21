@@ -113,7 +113,6 @@ def clear_all():
 
 @csrf_exempt
 def clear(request):
-    f = open('workfile', 'w')
     if request.method == 'POST':
         clear_all()
         resp_dict = {"code": 0, "response": "OK"}
