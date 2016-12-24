@@ -38,7 +38,8 @@ class Creator:
             query = Q.user_create(values)
         #
         try:
-            connection.execute(query)
+            id_ = connection.execute(query)
+            id_  = id_.lastrowid
             if query1 != None:
                 connection.execute(query1)
         except exc.SQLAlchemyError:
@@ -55,11 +56,11 @@ class Creator:
                 p = posts + 1
             for_inserting["id"] = p
         elif type == 1:
-            for_inserting["id"] = max_id("Thread")
+            for_inserting["id"] = id_
         elif type == 2:
-            for_inserting["id"] = max_id("Forum")
+            for_inserting["id"] = id_
         elif type == 3:
-            for_inserting["id"] = max_id("User")
+            for_inserting["id"] = id_
         #
         return 0, for_inserting
 
